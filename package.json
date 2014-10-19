@@ -1,0 +1,13 @@
+{
+  "name": "mypage",
+  "version": "0.0.1",
+  "description": "Web Page",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "*",
+	"jade": "*"
+  }
+}

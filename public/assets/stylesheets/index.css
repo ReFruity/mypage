@@ -1,0 +1,8 @@
+body {
+    background-image: url("/public/images/background.png");
+    background-color: black;
+}
+
+.main {
+    text-align: center;
+}
