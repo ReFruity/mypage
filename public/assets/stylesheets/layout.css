@@ -21,14 +21,6 @@ body {
     /*padding-left: 20px;*/
 }
 
-/*noinspection CssUnknownTarget*/
-.pencils {
-    /*width: 57px;*/
-    /*height: 360px;*/
-    /*height: 400px;*/
-    /*margin-top: 40px;*/
-}
-
 .white-eraser,.black-eraser {
     display: block;
     width: 150px;
@@ -47,20 +39,23 @@ body {
     display: inline-block;
 }
 
+.link {
+    text-decoration: none;
+    color: black;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
 .menu-wrapper {
     padding-top: 15px;
 }
 
 .menu {
     margin: 10px;
-    color: black;
     font-size: 16pt;
     border: 5px;
-}
-
-.menu:hover {
-    background: black;
-    color: white;
 }
 
 .elemright {
@@ -68,28 +63,39 @@ body {
     float: right;
 }
 
-.wcard-wrapper, .bcard-wrapper {
-    margin-top: -20px;
-    /*width: 200px;*/
-    /*height: 140px;*/
-    /*position: relative;*/
+/*noinspection CssUnknownTarget*/
+.wcard, .bcard {
+    width: 199px;
+    height: 143px;
+    background-size: 100% auto;
+    box-sizing: border-box;
 }
 
-.bcard,.wcard {
-    width: 200px;
-    /*position: absolute;*/
-    /*left: 0;*/
-    /*top: 0;*/
+/*noinspection CssUnknownTarget*/
+.wcard {
+    padding: 50px;
+    background-image: url("/images/white-card.png");
+}
+
+/*noinspection CssUnknownTarget*/
+.bcard {
+    background-image: url("/images/black-card.png");
 }
 
 .text {
-    /*position: absolute;*/
-    /*left: 70px;*/
-    /*top: 50px;*/
+}
+
+.mail {
+    font-style: italic;
+    display: block;
+}
+.minipic {
+    height: 30px;
+    width: 30px;
 }
 
 .notebook {
     display: block;
     width: 250px;
-    margin-top: 90px;
+    margin-top: 67px;
 }
