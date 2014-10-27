@@ -1,4 +1,14 @@
 extends layout.jade
 
+block scripts
+    link(rel='stylesheet', href='/assets/stylesheets/layout.css')
+    link(rel='stylesheet', href='/assets/stylesheets/index.css')
+
 block content
-    p This is just another web page.
+    h2 This is just another web page.
+    h3 Nothing of interest here.
+    h6 I'm serious.
+    div.hidden
+        span JK!
+        a.hidden(href="https://what-if.xkcd.com/") This
+        span  is really interesting.

@@ -34,7 +34,6 @@ body {
     padding-top: 10px;
     width: 450px;
     height: 624px;
-    /*height: 550px;*/
     box-shadow: 4px 7px 13px #333333;
     display: inline-block;
 }
@@ -58,6 +57,13 @@ body {
     border: 5px;
 }
 
+.line {
+    width: 400px;
+    height: 1px;
+    background-color: #ddd;
+    margin: 15px auto;
+}
+
 .elemright {
     display: inline-block;
     float: right;
@@ -71,9 +77,10 @@ body {
     box-sizing: border-box;
 }
 
-/*noinspection CssUnknownTarge  t*/
+/*noinspection CssUnknownTarget*/
 .wcard {
-    padding: 50px;
+    line-height: 40px;
+    padding: 40px;
     background-image: url("/images/white-card.png");
 }
 
@@ -87,8 +94,8 @@ body {
     display: block;
 }
 .minipic {
-    height: 30px;
-    width: 30px;
+    height: 25px;
+    width: 25px;
 }
 
 .notebook {
