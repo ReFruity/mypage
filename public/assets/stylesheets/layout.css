@@ -1,6 +1,7 @@
 /*noinspection CssUnknownTarget*/
 body {
     background-image: url("/images/background.png");
+    font-family: "Light", sans-serif;
 }
 
 .wrapper {
@@ -28,7 +29,7 @@ body {
     /*margin-top: 40px;*/
 }
 
-.eraser_white,.eraser_black {
+.white-eraser,.black-eraser {
     display: block;
     width: 150px;
 }
@@ -46,18 +47,49 @@ body {
     display: inline-block;
 }
 
+.menu-wrapper {
+    padding-top: 15px;
+}
+
+.menu {
+    margin: 10px;
+    color: black;
+    font-size: 16pt;
+    border: 5px;
+}
+
+.menu:hover {
+    background: black;
+    color: white;
+}
+
 .elemright {
     display: inline-block;
     float: right;
 }
 
+.wcard-wrapper, .bcard-wrapper {
+    margin-top: -20px;
+    /*width: 200px;*/
+    /*height: 140px;*/
+    /*position: relative;*/
+}
+
 .bcard,.wcard {
-    display: block;
     width: 200px;
+    /*position: absolute;*/
+    /*left: 0;*/
+    /*top: 0;*/
+}
+
+.text {
+    /*position: absolute;*/
+    /*left: 70px;*/
+    /*top: 50px;*/
 }
 
 .notebook {
     display: block;
     width: 250px;
-    margin-top: 60px;
+    margin-top: 90px;
 }
