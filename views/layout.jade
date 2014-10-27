@@ -5,6 +5,7 @@ html
         block scripts
             link(type='text/css', rel='stylesheet', href='/assets/stylesheets/layout.css')
         title #{title}
+        meta(charset="utf-8")
     body
         div.wrapper
             div.elemleft
@@ -21,16 +22,16 @@ html
                 div.line
                 block content
             div.elemright
-                div.bcard
-                div.wcard
+                div.black-card
+                div.white-card
                     a.mail.link(href="mailto:fakeemail@gmail.com") Email me
                     div.externals
                         a(href="https://vk.com/ymanyak")
-                            img.minipic(src='/images/vk-logo.png', alt="vk")
+                            img.mini-pic(src='/images/vk-logo.png', alt="vk")
                         a(href="https://github.com/ReFruity")
-                            img.minipic(src='/images/GitHub-Mark.png', alt="git")
+                            img.mini-pic(src='/images/GitHub-Mark.png', alt="git")
                         a(href="http://urfu.ru")
-                            img.minipic(src='/images/urfu-logo.png', alt="urfu")
+                            img.mini-pic(src='/images/urfu-logo.png', alt="urfu")
                         a(href="http://imkn.urfu.ru")
-                            img.minipic(src='/images/imkn-logo.png', alt="imkn")
+                            img.mini-pic(src='/images/imkn-logo.png', alt="imkn")
                 img.notebook(src="/images/notebook.png", alt="notebook")

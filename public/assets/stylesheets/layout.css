@@ -5,20 +5,20 @@ body {
 }
 
 .wrapper {
-    margin: 10px auto;
+    margin: 0 auto;
     text-align: center;
-    width: 900px;
+    width: 1000px;
 }
 
 .elemleft {
     display: inline-block;
-    float: left;
+    margin-right: 30px;
+    vertical-align: top;
 }
 
 .pencil1,.pencil2 {
     height: 400px;
     border: solid transparent 10px;
-    /*padding-left: 20px;*/
 }
 
 .white-eraser,.black-eraser {
@@ -34,8 +34,9 @@ body {
     padding-top: 10px;
     width: 450px;
     height: 624px;
-    box-shadow: 4px 7px 13px #333333;
+    box-shadow: 4px 7px 13px #333;
     display: inline-block;
+    vertical-align: top;
 }
 
 .link {
@@ -66,11 +67,12 @@ body {
 
 .elemright {
     display: inline-block;
-    float: right;
+    margin-left: 30px;
+    vertical-align: top;
 }
 
 /*noinspection CssUnknownTarget*/
-.wcard, .bcard {
+.white-card, .black-card {
     width: 199px;
     height: 143px;
     background-size: 100% auto;
@@ -78,14 +80,14 @@ body {
 }
 
 /*noinspection CssUnknownTarget*/
-.wcard {
+.white-card {
     line-height: 40px;
     padding: 40px;
     background-image: url("/images/white-card.png");
 }
 
 /*noinspection CssUnknownTarget*/
-.bcard {
+.black-card {
     background-image: url("/images/black-card.png");
 }
 
@@ -93,7 +95,7 @@ body {
     font-style: italic;
     display: block;
 }
-.minipic {
+.mini-pic {
     height: 25px;
     width: 25px;
 }
@@ -101,5 +103,5 @@ body {
 .notebook {
     display: block;
     width: 250px;
-    margin-top: 67px;
+    margin-top: 50px;
 }
