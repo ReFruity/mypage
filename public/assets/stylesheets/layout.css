@@ -71,7 +71,7 @@ body {
     box-sizing: border-box;
 }
 
-/*noinspection CssUnknownTarget*/
+/*noinspection CssUnknownTarge  t*/
 .wcard {
     padding: 50px;
     background-image: url("/images/white-card.png");
@@ -80,9 +80,6 @@ body {
 /*noinspection CssUnknownTarget*/
 .bcard {
     background-image: url("/images/black-card.png");
-}
-
-.text {
 }
 
 .mail {
