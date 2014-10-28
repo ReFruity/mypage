@@ -33,10 +33,11 @@ body {
     text-align: center;
     padding-top: 10px;
     width: 450px;
-    height: 624px;
+    height: 634px;
     box-shadow: 4px 7px 13px #333;
     display: inline-block;
     vertical-align: top;
+    box-sizing: border-box;
 }
 
 .link {
@@ -95,13 +96,21 @@ body {
     font-style: italic;
     display: block;
 }
+
+a img {
+    border: none;
+}
+
 .mini-pic {
     height: 25px;
     width: 25px;
+    margin-left: 2px;
+    margin-right: 2px;
 }
 
 .notebook {
     display: block;
     width: 250px;
     margin-top: 50px;
+    box-sizing: border-box;
 }
