@@ -2,3 +2,10 @@
     display: inline;
     color: transparent;
 }
+
+@media all\0 {
+    .hidden {
+        display: inline;
+        visibility: hidden;
+    }
+}
