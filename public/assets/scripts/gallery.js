@@ -2,12 +2,19 @@ function onClick(e) {
     var pressEsc = document.createElement("p");
     pressEsc.style.color = "#ddd";
     pressEsc.style.margin = "5px auto";
-    pressEsc.style.width = "200px";
+    pressEsc.style.width = "250px";
     pressEsc.style.background = "#333";
     pressEsc.style.borderRadius = "3px";
-    var text = document.createTextNode("Press Esc to close");
+    var text = document.createTextNode("Press Esc or right side to close");
     pressEsc.appendChild(text);
     
+    var closeBar = document.createElement("div");
+    closeBar.style.position = "fixed";
+    closeBar.style.right = "0";
+    closeBar.style.height = "100%";
+    closeBar.style.width = "200px";
+    closeBar.addEventListener("click", closePreview);
+
     var img = document.createElement("img");
     img.id = "img";
     img.style.height = "600px";
@@ -33,23 +40,27 @@ function onClick(e) {
     screen.style.background = "#444";
     screen.style.opacity = "0.7";
 
+    imgWrapper.appendChild(closeBar);
     imgWrapper.appendChild(pressEsc);
     imgWrapper.appendChild(img);
     document.body.appendChild(screen);
     document.body.appendChild(imgWrapper);
     
-//    document.body.onkeydown = keyDown;
+//    document.body.onkeydown = keyDown; // overrides previous onkeydown
     document.body.addEventListener('keydown', keyDown);
-
-//    console.log(e);
 }
 
 function keyDown(e) {
-    console.log(e);
     if (e.keyCode == 27) {
-        var screen = document.getElementById("screen");
-        var imgWrapper = document.getElementById("imgWrapper");
-        document.body.removeChild(screen);
-        document.body.removeChild(imgWrapper);
+        closePreview();
     }
+}
+
+function closePreview() {
+    var screen = document.getElementById("screen");
+    var imgWrapper = document.getElementById("imgWrapper");
+    if (screen)
+        document.body.removeChild(screen);
+    if (imgWrapper)
+        document.body.removeChild(imgWrapper);    
 }
