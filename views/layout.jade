@@ -2,11 +2,12 @@ doctype html
 // TODO: Suppressed watches
 html
     head
-        block scripts
+        block stylesheets
             link(type='text/css', rel='stylesheet', href='/assets/stylesheets/layout.css')
+        block scripts
         title #{title}
         meta(charset="utf-8")
-    body
+    body()
         div.wrapper
             div.elemleft
                 div.pencils

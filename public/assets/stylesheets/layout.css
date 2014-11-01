@@ -130,12 +130,12 @@ a img {
 /*noinspection CssUnknownTarget*/
 @font-face {
     font-family: 'yaquote';
-    src: url('/fonts/yaquote-webfont.eot');
-    src: url('/fonts/yaquote-webfont.eot?#iefix') format('embedded-opentype'),
-    url('/fonts/yaquote-webfont.woff2') format('woff2'),
-    url('/fonts/yaquote-webfont.woff') format('woff'),
-    url('/fonts/yaquote-webfont.ttf') format('truetype'),
-    url('/fonts/yaquote-webfont.svg#yaquote') format('svg');
+    src: url('/assets/fonts/yaquote-webfont.eot');
+    src: url('/assets/fonts/yaquote-webfont.eot?#iefix') format('embedded-opentype'),
+    url('/assets/fonts/yaquote-webfont.woff2') format('woff2'),
+    url('/assets/fonts/yaquote-webfont.woff') format('woff'),
+    url('/assets/fonts/yaquote-webfont.ttf') format('truetype'),
+    url('/assets/fonts/yaquote-webfont.svg#yaquote') format('svg');
     font-weight: normal;
     font-style: normal;
 
