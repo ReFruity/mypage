@@ -1,0 +1,9 @@
+.gallery {
+    /*margin-top: 50px;*/
+}
+
+.picture {
+    width: 200px;
+    margin: 1px;
+    vertical-align: top;
+}

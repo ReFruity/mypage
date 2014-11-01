@@ -18,7 +18,7 @@ html
                 div.menu-wrapper
                     a.menu.link(href="/") HOME
                     a.menu.link(href="/about") ABOUT
-                    a.menu.link(href="/gallery") GALLERY
+                    //a.menu.link(href="/gallery") GALLERY
                 div.line
                 block content
             div.elemright
@@ -34,4 +34,7 @@ html
                             img.mini-pic(src='/images/urfu-logo.png', alt="urfu")
                         a(href="http://imkn.urfu.ru")
                             img.mini-pic(src='/images/imkn-logo.png', alt="imkn")
-                img.notebook(src="/images/notebook.png", alt="notebook")
+                div.notebook
+                    span >
+                    a.link(href="/gallery") Gallery
+                    span <

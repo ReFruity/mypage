@@ -1,4 +1,12 @@
 extends layout.jade
 
+block scripts
+    link(rel='stylesheet', href='/assets/stylesheets/layout.css')
+    link(rel='stylesheet', href='/assets/stylesheets/gallery.css')
+
 block content
-    p Photo gallery will be here soon.
+    div.gallery
+        img.picture(src="/images/gallery/kyon1.jpg", alt="kyon1", onclick=)
+        img.picture(src="/images/gallery/kyon2.jpg", alt="kyon2")
+        img.picture(src="/images/gallery/frusciante.jpg", alt="frusciante")
+        img.picture(src="/images/gallery/haruhi.jpg", alt="haruhi")
