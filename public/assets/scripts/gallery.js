@@ -1,11 +1,13 @@
 function onClick(e) {
+    e = e || window.event;
+    
     var pressEsc = document.createElement("p");
     pressEsc.style.color = "#ddd";
     pressEsc.style.margin = "5px auto";
-    pressEsc.style.width = "250px";
+    pressEsc.style.width = "265px";
     pressEsc.style.background = "#333";
     pressEsc.style.borderRadius = "3px";
-    var text = document.createTextNode("Press Esc or right side to close");
+    var text = document.createTextNode("Press Esc or click right side to close");
     pressEsc.appendChild(text);
     
     var closeBar = document.createElement("div");
@@ -17,6 +19,7 @@ function onClick(e) {
 
     var img = document.createElement("img");
     img.id = "img";
+    img.style.width = "auto";
     img.style.height = "600px";
     img.style.boxShadow = "4px 7px 13px #333";
     img.src = e.target.src;
@@ -51,9 +54,18 @@ function onClick(e) {
 }
 
 function keyDown(e) {
+    e = e || window.event; // IE8
+    
     if (e.keyCode == 27) {
         closePreview();
     }
+    if (e.keyCode == 112) {
+        
+    }
+    if(e.preventDefault)
+        e.preventDefault();
+    e.returnValue = false;
+    return false;
 }
 
 function closePreview() {
@@ -64,3 +76,6 @@ function closePreview() {
     if (imgWrapper)
         document.body.removeChild(imgWrapper);    
 }
+
+//IE 8 onClick doesn't work
+//IE 9 stretches images
