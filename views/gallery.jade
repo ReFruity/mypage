@@ -1,7 +1,6 @@
 extends layout.jade
 
-block stylesheets
-    link(rel='stylesheet', href='/assets/stylesheets/layout.css')
+block append stylesheets
     link(rel='stylesheet', href='/assets/stylesheets/gallery.css')
 
 block scripts
@@ -9,7 +8,7 @@ block scripts
 
 block content
     div.gallery
-        img.picture(src="/images/gallery/kyon1.jpg", alt="kyon1", onclick="onClick(event)")
-        img.picture(src="/images/gallery/kyon2.jpg", alt="kyon2", onclick="onClick(event)")
-        img.picture(src="/images/gallery/frusciante.jpg", alt="frusciante", onclick="onClick(event)")
-        img.picture(src="/images/gallery/haruhi.jpg", alt="haruhi", onclick="onClick(event)")
+        img.picture#0(src="/images/gallery/kyon1.jpg", alt="kyon1", onclick="onClick(event)")
+        img.picture#1(src="/images/gallery/kyon2.jpg", alt="kyon2", onclick="onClick(event)")
+        img.picture#2(src="/images/gallery/frusciante.jpg", alt="frusciante", onclick="onClick(event)")
+        img.picture#3(src="/images/gallery/haruhi.jpg", alt="haruhi", onclick="onClick(event)")
