@@ -1,75 +1,53 @@
 document.i = 0;
 
+var gelements = [];
+
+//noinspection JSUnusedGlobalSymbols
 function onClick(e) {
     e = e || window.event;
+    var target = getCrossBrowserTarget(e);
+    if (isIE() && isIE() < 9) { //IE8 thinks target is img
+        target = target.parentNode;
+    }
     
-    var pressEsc = document.createElement("p");
-    pressEsc.style.color = "#ddd";
-    pressEsc.style.margin = "5px auto";
-    pressEsc.style.width = "200px";
-//    pressEsc.style.background = "#333";
-//    pressEsc.style.background = "rgba(51,51,51,0.7)";
-    pressEsc.style.background = "rgb(51,51,51)"; //remove
-    pressEsc.style.borderRadius = "3px";
-    pressEsc.appendChild(document.createTextNode("Press F1 for help"));
+    var info = document.createElement("p");
+    info.className = "info";
+    info.appendChild(document.createTextNode("Press F1 for help"));
     
     var closeBar = document.createElement("div");
-    closeBar.style.position = "fixed";
-    closeBar.style.right = "0";
-    closeBar.style.height = "100%";
-    closeBar.style.width = "200px";
-//    closeBar.style.zIndex = "10";
-    if (document.body.addEventListener) {
-        closeBar.addEventListener("click", closePreview);
-    }
-    else {
-        closeBar.attachEvent("onclick", closePreview);
-    }
+    closeBar.className = "closeBar";
+    addCrossBrowserListener(closeBar, 'click', closePreview);
 
+    var spinner = document.createElement("img");
+    spinner.className = "spinner";
+    spinner.src = "/images/spinner.gif";
+    
     var img = document.createElement("img");
-    img.id = "img";
-    img.style.width = "auto";
-    img.style.height = "600px";
-    img.style.boxShadow = "4px 7px 13px #333";
-    var target = e.target || e.srcElement;
-    img.src = target.src;
+    img.className = "img";
+    img.onload = showImage;
+    img.src = target.href;
+//    img.src = "http://crispme.com/wp-content/uploads/26105"+".jpg?pass"; // testing purposes
+    
     document.i = parseInt(target.id);
-//    img.style.zIndex = "2";
     
     var imgWrapper = document.createElement("div");
-    imgWrapper.id = "imgWrapper";
-    imgWrapper.style.position = "fixed";
-    imgWrapper.style.top = "0";
-    imgWrapper.style.left = "0";
-    imgWrapper.style.height = "100%"; 
-    imgWrapper.style.width = "100%";
-    imgWrapper.style.textAlign = "center";
-//    imgWrapper.style.zIndex = "1";
+    imgWrapper.className = "imgWrapper";
     
     var screen = document.createElement("div");
-    screen.id = "screen";
-    screen.style.position = "fixed";
-    screen.style.height = "100%";
-    screen.style.width = "100%";
-    screen.style.top = "0";
-    screen.style.left = "0";
-    screen.style.background = "#444";
-    screen.style.opacity = "0.7";
-//    screen.style.zIndex = "0";
+    screen.className = "screen";
 
-    imgWrapper.appendChild(closeBar);
-    imgWrapper.appendChild(pressEsc);
     imgWrapper.appendChild(img);
     document.body.appendChild(screen);
+    document.body.appendChild(info);
     document.body.appendChild(imgWrapper);
+    document.body.appendChild(spinner);
+    document.body.appendChild(closeBar);
     
-//    document.body.onkeydown = keyDown; // overrides previous onkeydown
-    if (document.body.addEventListener) {
-        document.body.addEventListener('keydown', keyDown);
-    }
-    else {
-        document.body.attachEvent("onkeydown", keyDown);
-    }
+    gelements.push("screen", "info", "imgWrapper", "spinner", "closeBar");
+    
+    addCrossBrowserListener(document.body, 'keydown', keyDown);
+    
+    return preventDefault(e);
 }
 
 function keyDown(e) {
@@ -77,32 +55,27 @@ function keyDown(e) {
     
     if (e.keyCode == 27) {
         closePreview();
+        return preventDefault(e);
     }
     if (e.keyCode == 112) {
         if ("onhelp" in window) // F1 in IE
             {window.onhelp = function () {return false;}}
-        var imgWrapper = document.getElementById("imgWrapper");
+        var imgWrapper = crossBrowserGetByClassName("imgWrapper")[0];
         if (imgWrapper) {
-            if (document.getElementById("help")) {
-                imgWrapper.removeChild(document.getElementById("help"));
+            var help = crossBrowserGetByClassName("help")[0];
+            if (help) {
+                imgWrapper.removeChild(help);
             }
             else {
-                var help = document.createElement("div");
-                help.id = "help";
-                help.style.width = "200px";
-//                help.style.height = "400px";
-//                help.style.background = "rgba(85,85,85,0.7)";
-                help.style.background = "rgb(85,85,85)"; //remove
-                help.style.borderRadius = "3px";
-                help.style.position = "fixed";
-                help.style.left = "10px";
-                help.style.top = "10px";
+                help = document.createElement("div");
+                help.className = "help";
                 
                 var helpText = document.createElement("p");
-                helpText.style.margin = "5px";
-                helpText.style.color = "#ddd";
-                helpText.appendChild(document.createTextNode("Help: "));
-                helpText.appendChild(document.createTextNode("Use arrows to navigate, press Esc or right side to close"));
+                helpText.className = "helpText";
+               
+                helpText.appendChild(
+                    document.createTextNode("Help: Use arrows to navigate, press Esc or right side to close")
+                );
                 
                 help.appendChild(helpText);
                 imgWrapper.appendChild(help);
@@ -110,42 +83,70 @@ function keyDown(e) {
         }
         return preventDefault(e);
     }
-    var img, pictures;
+    var img = crossBrowserGetByClassName("img")[0];
+    var items = crossBrowserGetByClassName("gitem");
     if (e.keyCode == 37) { //arrow left
-        img = document.getElementById("img");
-        pictures = document.getElementsByClassName("picture");
-        if (img && pictures) {
-            if (document.i <= 0) document.i = pictures.length;
+        if (img && items) {
+            if (document.i <= 0) document.i = items.length;
             document.i--;
-            img.src = pictures.item(document.i).src;
+            img.src = items.item(document.i).href;
+            img.style.visibility = "hidden";
+            showSpinner();
         }
         return preventDefault(e);
     }
     if (e.keyCode == 39) { //arrow right
-        img = document.getElementById("img");
-        pictures = document.getElementsByClassName("picture");
-        if (img && pictures) {
+        if (img && items) {
             document.i++;
-            if (document.i >= pictures.length) document.i = 0;
-            img.src = pictures.item(document.i).src;
-//            console.log(pictures.item(document.i).src);
+            if (document.i >= items.length) document.i = 0;
+            img.src = items.item(document.i).href;
+            img.style.visibility = "hidden";
+            showSpinner();
+//            console.log(items.item(document.i).href);
         }
         return preventDefault(e);
     }
 }
 
-function preventDefault(e) {
-    e.preventDefault ? e.preventDefault() : e.returnValue = false;
-    return false;
-}
-
 function closePreview() {
-    var screen = document.getElementById("screen");
-    var imgWrapper = document.getElementById("imgWrapper");
-    if (screen)
-        document.body.removeChild(screen);
-    if (imgWrapper)
-        document.body.removeChild(imgWrapper);    
+    for (var i in gelements) {
+        var elem = crossBrowserGetByClassName(gelements[i])[0];
+        if (elem) {
+            document.body.removeChild(elem);
+        }
+    }
+    removeCrossBrowserListener(document.body, "keydown", keyDown);
 }
 
-//IE8 rgba substitute
+function showImage(e) {
+    e = e || window.event;
+//    var target = getCrossBrowserTarget(e);
+    var target = this;
+    target.style.visibility = "visible";
+//        console.log("loaded!");
+    hideSpinner();
+}
+
+function hideSpinner() {
+    var spinner = crossBrowserGetByClassName("spinner")[0];
+    if (spinner) {
+        spinner.style.visibility = "hidden";
+    }
+}
+
+function showSpinner() {
+    var spinner = crossBrowserGetByClassName("spinner")[0];
+    if (spinner) {
+        spinner.style.visibility = "visible";
+    }
+}
+
+// TODO list:
+    /* features:
+     show, hide
+     fadeIn, fadeOut
+     slideUp,slideDown
+     animate
+     */
+
+    //hasOwnProperty check
