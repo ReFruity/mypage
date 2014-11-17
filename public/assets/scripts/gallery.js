@@ -1,23 +1,31 @@
-document.imgIndex = null;
-addCrossBrowserListener(window, "load", init);
+addCrossBrowserListener(window, "load", ginit);
 var gelements = [];
 
-function init() {
-    document.imgIndex = readCookie("imgIndex");
+function ginit() {
     addCrossBrowserListener(window, "hashchange", hashChange);
-    if (document.imgIndex) {
-        document.location.hash = document.imgIndex;
-        openPreview(document.imgIndex);
-    }
+    var startIndex = readCookie("startIndex");
+    if (startIndex && getImgIndex() != startIndex)
+        document.location.hash = startIndex;
+    else
+        hashChange();
 }
 
 function hashChange() {
-    console.log("hash changed");
+    var imgIndex = getImgIndex();
+    if (imgIndex == -1) {
+        closePreview();
+    }
+    else {
+        if (gelements.length) { // if preview is open
+            switchImage(imgIndex);
+        }
+        else {
+            openPreview(imgIndex);
+        }
+    }
 }
 
-function openPreview(i) {
-    document.location.hash = i;
-    
+function openPreview(i) {    
     var info = document.createElement("p");
     info.className = "info";
     info.id = "info1";
@@ -36,13 +44,9 @@ function openPreview(i) {
     var img = document.createElement("img");
     img.className = "img";
     img.id = "img1";
-    img.onload = show;
+    img.onload = imgLoad;
     img.src = crossBrowserGetByClassName("gitem")[i].href;
-//    img.src = target.href;
-//    img.src = "http://crispme.com/wp-content/uploads/26105"+".jpg?pass"; // testing purposes
-
-    document.imgIndex = parseInt(i);
-    createCookie("imgIndex", document.imgIndex);
+//    img.src = "http://crispme.com/wp-content/uploads/26108.jpg?pass"; // testing purposes
 
     var imgWrapper = document.createElement("div");
     imgWrapper.className = "imgWrapper";
@@ -72,7 +76,7 @@ function onClick(e) {
         target = target.parentNode;
     }
     
-    openPreview(parseInt(target.id));
+    window.location.hash = parseInt(target.id);
     
     return preventDefault(e);
 }
@@ -80,11 +84,11 @@ function onClick(e) {
 function keyDown(e) {
     e = e || window.event; // IE8
     
-    if (e.keyCode == 27) {
-        closePreview();
+    if (e.keyCode == 27) { // escape
+        window.location.hash = "";
         return preventDefault(e);
     }
-    if (e.keyCode == 112) {
+    if (e.keyCode == 112) { // F1
         if ("onhelp" in window) // F1 in IE
             {window.onhelp = function () {return false;}}
         var imgWrapper = document.getElementById("imgWrapper1");
@@ -103,8 +107,16 @@ function keyDown(e) {
                 helpText.id = "helpText1";
                
                 helpText.appendChild(
-                    document.createTextNode("Help: Use arrows to navigate, press Esc or right side to close")
-                );
+                    document.createTextNode("Help:"));
+                helpText.appendChild(document.createElement("BR"));
+                helpText.appendChild(
+                    document.createTextNode("-  Use arrows to navigate, press Esc or right side to close"));
+                helpText.appendChild(document.createElement("BR"));
+                helpText.appendChild(
+                    document.createTextNode("- 's' makes current image starting, 'd' unmakes"));
+                helpText.appendChild(document.createElement("BR"));
+                helpText.appendChild(
+                    document.createTextNode("- 'b' makes it background image, 'n' resets background"));
                 
                 help.appendChild(helpText);
                 imgWrapper.appendChild(help);
@@ -112,30 +124,65 @@ function keyDown(e) {
         }
         return preventDefault(e);
     }
-    var img = document.getElementById("img1");
-    var items = crossBrowserGetByClassName("gitem");
-    if (e.keyCode == 37) { //arrow left
-        if (img && items) {
-            if (document.imgIndex <= 0) document.imgIndex = items.length;
-            document.imgIndex--;
-            createCookie("imgIndex", document.imgIndex);
-            img.src = items.item(document.imgIndex).href;
-            img.style.visibility = "hidden";
-            showSpinner();
+    var gitems, imgIndex;
+    if (e.keyCode == 37) { // arrow left
+        gitems = crossBrowserGetByClassName("gitem");
+        if (gitems) {
+            imgIndex = getImgIndex();
+            if (imgIndex <= 0) imgIndex = gitems.length;
+            window.location.hash = imgIndex - 1;
+        }
+        
+        return preventDefault(e);
+    }
+    if (e.keyCode == 39) { // arrow right
+        gitems = crossBrowserGetByClassName("gitem");
+        if (gitems) {
+            imgIndex = getImgIndex() + 1;
+            if (imgIndex >= gitems.length) imgIndex = 0;
+            window.location.hash = imgIndex;
         }
         return preventDefault(e);
     }
-    if (e.keyCode == 39) { //arrow right
-        if (img && items) {
-            document.imgIndex++;
-            createCookie("imgIndex", document.imgIndex);
-            if (document.imgIndex >= items.length) document.imgIndex = 0;
-            img.src = items.item(document.imgIndex).href;
-            img.style.visibility = "hidden";
-            showSpinner();
-//            console.log(items.item(document.imgIndex).href);
+    if (e.keyCode == 83) { // 's'
+        createCookie("startIndex", getImgIndex());
+        alert("Picture set as starting!");
+        return preventDefault(e);
+    }
+    if (e.keyCode == 68) { // 'd'
+        if (readCookie("startIndex")) {
+            eraseCookie("startIndex");
+            alert("Starting picture unset!");
         }
         return preventDefault(e);
+    }
+    if (e.keyCode == 66) { // 'b'
+        gitems = crossBrowserGetByClassName("gitem");
+        createCookie("background", gitems[getImgIndex()].href);
+        window.location.reload();
+        alert("Picture set as background!");
+        return preventDefault(e);
+    }
+    if (e.keyCode == 78) { // 'n'
+        eraseCookie("background");
+        window.location.reload();
+        alert("Background reset!");
+        return preventDefault(e);
+    }
+}
+
+function getImgIndex() {
+    var str = window.location.hash.substring(1);
+    return str ? parseInt(str) : -1;
+}
+
+function switchImage(i) {
+    var img = document.getElementById("img1");
+    var gitems = crossBrowserGetByClassName("gitem");
+    if (img) {
+        img.src = gitems.item(i).href;
+        img.style.visibility = "hidden";
+        showSpinner();
     }
 }
 
@@ -150,13 +197,18 @@ function closePreview() {
     }
     gelements = [];
     removeCrossBrowserListener(document.body, "keydown", keyDown);
-    eraseCookie("imgIndex");
 }
 
-function show(e) {
+function imgLoad(e) {
     var target = this;
     target.style.visibility = "visible";
     hideSpinner();
+    var gitems = crossBrowserGetByClassName("gitem");
+    if (gitems) {
+        var next = getImgIndex() + 1;
+        if (next == gitems.length) next = 0;
+        preload(gitems[next].href);
+    }
 }
 
 function hideSpinner() {

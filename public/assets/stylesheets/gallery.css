@@ -71,8 +71,7 @@
 }
 
 .help {
-    width: 200px;
-    /*height: 400px;*/
+    width: 250px;
     background: rgba(85,85,85,0.7); /* doesn't work in IE8 */
     /*background: rgb(85,85,85);*/
     /*-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";*/

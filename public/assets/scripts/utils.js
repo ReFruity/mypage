@@ -39,6 +39,10 @@ function isIE () {
     return (myNav.indexOf('msie') != -1) ? parseInt(myNav.split('msie')[1]) : false;
 }
 
+function preload(url) {
+    new Image().src = url;
+}
+
 /* COOKIES */
 function createCookie(name, value, days) {
     var expires;
