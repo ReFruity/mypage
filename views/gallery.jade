@@ -9,8 +9,9 @@ block scripts
 
 mixin entry(id, name, ext)
     a.gitem(id=id, href='/images/gallery/'+name+'.'+ext, onclick='onClick(event)')
-        img.mini(src='/images/gallery/mini/'+name+'.'+ext, alt=name) 
+        img.mini(src='/images/gallery/mini/'+name+'.'+ext, alt=name)
 
+- var attributes = {'onload': 'init()'};
 block content
     div.gallery
         +entry(0, "kyon1", "jpg")
