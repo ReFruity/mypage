@@ -1,7 +1,9 @@
 addCrossBrowserListener(window, "load", ginit);
-var gelements = [];
+var gelements = []; // preview nodes
+var gitems = []; // a's with img inside
 
 function ginit() {
+    gitems = crossBrowserGetByClassName("gitem");
     addCrossBrowserListener(window, "hashchange", hashChange);
     var startIndex = readCookie("startIndex");
     if (startIndex && getImgIndex() != startIndex)
@@ -124,9 +126,8 @@ function keyDown(e) {
         }
         return preventDefault(e);
     }
-    var gitems, imgIndex;
+    var imgIndex;
     if (e.keyCode == 37) { // arrow left
-        gitems = crossBrowserGetByClassName("gitem");
         if (gitems) {
             imgIndex = getImgIndex();
             if (imgIndex <= 0) imgIndex = gitems.length;
@@ -136,7 +137,6 @@ function keyDown(e) {
         return preventDefault(e);
     }
     if (e.keyCode == 39) { // arrow right
-        gitems = crossBrowserGetByClassName("gitem");
         if (gitems) {
             imgIndex = getImgIndex() + 1;
             if (imgIndex >= gitems.length) imgIndex = 0;
@@ -157,16 +157,15 @@ function keyDown(e) {
         return preventDefault(e);
     }
     if (e.keyCode == 66) { // 'b'
-        gitems = crossBrowserGetByClassName("gitem");
         createCookie("background", gitems[getImgIndex()].href);
-        window.location.reload();
         alert("Picture set as background!");
+        window.location.reload();
         return preventDefault(e);
     }
     if (e.keyCode == 78) { // 'n'
         eraseCookie("background");
-        window.location.reload();
         alert("Background reset!");
+        window.location.reload();
         return preventDefault(e);
     }
 }
@@ -178,7 +177,6 @@ function getImgIndex() {
 
 function switchImage(i) {
     var img = document.getElementById("img1");
-    var gitems = crossBrowserGetByClassName("gitem");
     if (img) {
         img.src = gitems.item(i).href;
         img.style.visibility = "hidden";
@@ -203,11 +201,13 @@ function imgLoad(e) {
     var target = this;
     target.style.visibility = "visible";
     hideSpinner();
-    var gitems = crossBrowserGetByClassName("gitem");
-    if (gitems) {
+    if (gitems) { // preload adjacent images
         var next = getImgIndex() + 1;
         if (next == gitems.length) next = 0;
+        var previous = getImgIndex() - 1;
+        if (previous == -1) previous = gitems.length - 1;
         preload(gitems[next].href);
+        preload(gitems[previous].href);
     }
 }
 
