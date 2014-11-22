@@ -1,9 +1,11 @@
 addCrossBrowserListener(window, "load", ginit);
 var gelements = []; // preview nodes
 var gitems = []; // a's with img inside
+var isIE8 = false;
 
 function ginit() {
     gitems = crossBrowserGetByClassName("gitem");
+    isIE8 = isIE() && isIE() < 9;
     addCrossBrowserListener(window, "hashchange", hashChange);
     var startIndex = readCookie("startIndex");
     if (startIndex && getImgIndex() != startIndex)
@@ -47,7 +49,7 @@ function openPreview(i) {
     img.className = "img";
     img.id = "img1";
     img.onload = imgLoad;
-    img.src = crossBrowserGetByClassName("gitem")[i].href;
+    img.src = gitems[i].href;
 //    img.src = "http://crispme.com/wp-content/uploads/26108.jpg?pass"; // testing purposes
 
     var imgWrapper = document.createElement("div");
@@ -74,7 +76,7 @@ function openPreview(i) {
 function onClick(e) {
     e = e || window.event;
     var target = getCrossBrowserTarget(e);
-    if (isIE() && isIE() < 9) { //IE8 thinks target is img
+    if (isIE8) { //IE8 thinks target is img
         target = target.parentNode;
     }
     
@@ -168,6 +170,10 @@ function keyDown(e) {
         window.location.reload();
         return preventDefault(e);
     }
+    if (e.keyCode >= 65 && e.keyCode <= 90 || 
+        e.keyCode >= 48 && e.keyCode <= 57) { // disables automatic search in firefox
+        return preventDefault(e);
+    }
 }
 
 function getImgIndex() {
@@ -179,8 +185,10 @@ function switchImage(i) {
     var img = document.getElementById("img1");
     if (img) {
         img.src = gitems.item(i).href;
-        img.style.visibility = "hidden";
-        showSpinner();
+        if (!isIE8) { // IE8 wouldn't trigger onload
+            img.style.visibility = "hidden";
+            showSpinner();
+        }
     }
 }
 
