@@ -8,10 +8,10 @@ var data = {};
 exports.init = function () {
     fs.readFile('./counter.xml', function(err, xmlText) {
         parser.parseString(xmlText, function (err, result) {
-//            console.log(result);
-            data.counter = parseInt(result.counter || 0); 
+            data.counter = parseInt(result.counter) || 0; 
         });
     });
+    if (!data.entries) data.entries = [];
 };
 
 exports.save = function () {
@@ -20,15 +20,9 @@ exports.save = function () {
 };
 
 exports.increment = function (request) {
-//    this.writeRequest(request, "requestmoz");
-//    request.connection["user-id"];
-//    data.lastip = request.connection.remoteAddress;
-//    request.getCo
-//    if (request.message.method != '')
     var uid = request.ip + request.headers["user-agent"];
-//    console.log(uid);
-    if (!data[uid]) {
-        data[uid] = 1;
+    if (data.entries.indexOf(uid) == -1) {
+        data.entries.push(uid);
         data.counter++;
     }
     this.save();
@@ -52,5 +46,4 @@ exports.writeRequest = function (request, filename) {
         return value;
     }));
     cache = null;
-//    console.log(request.headers["user-agent"]);
 };
