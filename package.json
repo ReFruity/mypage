@@ -9,7 +9,8 @@
     "dependencies": {
         "express": "*",
         "jade": "*",
-        "xml2js": "*"
+        "xml2js": "*",
+        "pg": "*"
     },
     "engines": {
         "node": "0.10.x"

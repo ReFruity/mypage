@@ -42,7 +42,7 @@ exports.writeRequest = function (request, filename) {
             }
             // Store value in our collection
             cache.push(value);
-        }
+        } 
         return value;
     }));
     cache = null;

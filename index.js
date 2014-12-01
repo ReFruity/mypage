@@ -11,7 +11,6 @@ app.use(function(request, response, next) {
     next();
 });
 
-
 counter.init();
 
 app.get('/', function(request, response) {
