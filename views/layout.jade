@@ -10,9 +10,7 @@ html
             script(src="/assets/scripts/init.js", type="text/javascript")
         title #{title}
         meta(charset="utf-8")
-    //- var attributes = {};
-    - var attributes = {'data-foo': 'bar'};
-    body&attributes(attributes)
+    body
         div.wrapper
             div.elemleft
                 div.pencils
@@ -24,11 +22,11 @@ html
                 div.menu-wrapper
                     a.menu.link(href="/") HOME
                     a.menu.link(href="/about") ABOUT
-                    //a.menu.link(href="/gallery") GALLERY
                 div.line
                 block content
             div.elemright
                 div.black-card
+                    h1 #{counter}  
                 div.white-card
                     a.mail.link(href="mailto:fakeemail@gmail.com") Email me
                     div.externals

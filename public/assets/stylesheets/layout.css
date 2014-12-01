@@ -89,6 +89,9 @@ body {
 
 /*noinspection CssUnknownTarget*/
 .black-card {
+    line-height: 25px;
+    padding: 40px;
+    color: white;
     background-image: url("/images/black-card.png");
 }
 

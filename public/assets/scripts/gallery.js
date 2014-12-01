@@ -235,3 +235,4 @@ function showSpinner() {
 
 // TODO list:
     //hasOwnProperty check
+    //IE8 preload when switching image
