@@ -3,6 +3,10 @@
     "version": "1.0.1",
     "description": "Web Page",
     "main": "index.js",
+    "repository" :
+        { "type" : "git"
+        , "url" : "https://github.com/ReFruity/mypage"
+        },
     "scripts": {
         "start": "node index.js"
     },
