@@ -1,35 +1,33 @@
 var fs = require('fs');
-var xml2js = require('xml2js');
-var parser = new xml2js.Parser();
-var builder = new xml2js.Builder();
+var pg = require('pg');
 
 var data = {};
 
 exports.init = function () {
-    fs.readFile('./counter.xml', function(err, xmlText) {
-        parser.parseString(xmlText, function (err, result) {
-            data.counter = parseInt(result.counter) || 0; 
-        });
-    });
-    if (!data.entries) data.entries = [];
+//    fs.readFile('./counter.xml', function(err, xmlText) {
+//        parser.parseString(xmlText, function (err, result) {
+//            data.counter = parseInt(result.counter) || 0; 
+//        });
+//    });
+//    if (!data.entries) data.entries = [];
 };
 
 exports.save = function () {
-    var xml = builder.buildObject(data);
-    fs.writeFile("./counter.xml", xml);
+//    var xml = builder.buildObject(data);
+//    fs.writeFile("./counter.xml", xml);
 };
 
 exports.increment = function (request) {
-    var uid = request.ip + request.headers["user-agent"];
-    if (data.entries.indexOf(uid) == -1) {
-        data.entries.push(uid);
-        data.counter++;
-    }
-    this.save();
+//    var uid = request.ip + request.headers["user-agent"];
+//    if (data.entries.indexOf(uid) == -1) {
+//        data.entries.push(uid);
+//        data.counter++;
+//    }
+//    this.save();
 };
 
 exports.get = function () {
-    return data.counter;
+    return 0;
 };
 
 exports.writeRequest = function (request, filename) {

@@ -26,6 +26,19 @@ app.get('/gallery', function(request, response) {
     response.render('gallery', {title: 'Gallery', counter: counter.get()})
 });
 
+app.get('/db', function (request, response) {
+    var pg = require('pg');
+    pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+        client.query('SELECT * FROM test_table', function(err, result) {
+            done();
+            if (err)
+            { console.error(err); response.send("Error " + err); }
+            else
+            { response.send(result.rows); }
+        });
+    });
+});
+
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
 });
