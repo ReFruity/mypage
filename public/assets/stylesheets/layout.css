@@ -24,6 +24,22 @@ body {
 .white-eraser,.black-eraser {
     display: block;
     width: 150px;
+    height: 77px;
+    box-sizing: border-box;
+    padding-top: 34px;
+    padding-right: 15px;
+    font-size: 13pt;
+    background-size: 100% auto;
+}
+
+/*noinspection CssUnknownTarget*/
+.white-eraser {
+    background-image: url("/images/white-eraser.png");
+}
+
+/*noinspection CssUnknownTarget*/
+.black-eraser {
+    background-image: url("/images/black-eraser.png");
 }
 
 /*noinspection CssUnknownTarget*/

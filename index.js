@@ -1,9 +1,18 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 var counter = require('./counter.js');
+var feedback = require('./feedback.js');
 var app = express();
 
 app.set('port', (process.env.PORT || 3000));
 app.set('view engine', 'jade');
+
+// parse application/json
+app.use(bodyParser.json());
+// to support URL-encoded bodies
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 app.use(express.static(__dirname + '/public'));
 app.use(function(request, response, next) {
@@ -22,6 +31,18 @@ app.get('/about', function(request, response) {
 
 app.get('/gallery', function(request, response) {
     response.render('gallery', {title: 'Gallery', counter: counter.get()})
+});
+
+app.get('/feedback', function(request, response) {
+//    feedback.eraseComments();
+//    feedback.eraseUsers();
+    response.render('feedback', {title: 'Feedback', counter: counter.get(), comments: feedback.get()});
+});
+
+app.post('/feedback', function(request, response) {
+    feedback.add(request);
+//    dialog.info(error, "Error");   
+    response.render('feedback', {title: 'Feedback', counter: counter.get(), comments: feedback.get()});
 });
 
 app.listen(app.get('port'), function() {

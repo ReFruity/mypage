@@ -15,7 +15,9 @@
         "jade": "*",
         "xml2js": "*",
         "pg": "*",
-        "ua-parser-js": "*"
+        "ua-parser-js": "*",
+        "body-parser": "*",
+        "dialog": "*"
     },
     "engines": {
         "node": "0.10.x"
