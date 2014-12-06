@@ -1,4 +1,4 @@
-var dialog = require('dialog');
+//var dialog = require('dialog');
 var pgQuery = require('./utils').pgQuery;
 var users = [];
 var comments = [];
@@ -17,7 +17,7 @@ exports.add = function(request, callback) {
     var text = request.body.text, date = new Date(), login = request.body.login;
     var minInterval = 60000; // 1 minute
     if (!text) {
-        dialog.info("Comment cannot be empty", "Error");
+//        dialog.info("Comment cannot be empty", "Error");
         return;
     }
     if (!login) {
@@ -27,12 +27,12 @@ exports.add = function(request, callback) {
     if (recentComment) {
         var date2 = recentComment.date_posted;
         if (date - date2 < minInterval) {
-            dialog.info("Wait 1 minute before posting", "Error");
+//            dialog.info("Wait 1 minute before posting", "Error");
             return;
         } 
     }
     if (login != "Anonymous" && !checkPassword(login, request.body.password)) {
-        dialog.info("Wrong password", "Error");
+//        dialog.info("Wrong password", "Error");
         return;
     }
     pgQuery('SELECT id FROM users WHERE name = $1', [login], function(result) {
@@ -44,7 +44,7 @@ exports.add = function(request, callback) {
             pgQuery('INSERT INTO comments(user_id, date_posted, comment_text) VALUES ($1, $2, $3)', [user_id, date, text]);
         }
         else {
-            dialog.info("This nickname is not registered", "Error");
+//            dialog.info("This nickname is not registered", "Error");
         }
     });
 };
