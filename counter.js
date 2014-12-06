@@ -10,9 +10,14 @@ pgQuery('SELECT browser, version, ip FROM visitors', [], function(result){data.v
 pgQuery('SELECT * FROM counter', [], function(result){data.hits = result.rows[0].hits;});
 
 exports.increment = function (request) {
-    var ip = request.ip;
-//    var parsedUa = parseUa(request.headers["user-agent"]);
-    var parsedUa = parseUa(request.headers["x-forwarded-for"]);
+    var ip = request.headers["x-forwarded-for"];
+    if (ip){
+        var list = ip.split(",");
+        ip = list[list.length-1];
+    } else {
+        ip = request.ip;
+    }
+    var parsedUa = parseUa(request.headers["user-agent"]);
     var browser = parsedUa.browser.name;
     var version = parsedUa.browser.version;
     
