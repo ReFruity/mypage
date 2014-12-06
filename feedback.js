@@ -18,6 +18,7 @@ exports.add = function(request, callback) {
     var minInterval = 60000; // 1 minute
     if (!text) {
 //        dialog.info("Comment cannot be empty", "Error");
+        callback();
         return;
     }
     if (!login) {
@@ -28,11 +29,13 @@ exports.add = function(request, callback) {
         var date2 = recentComment.date_posted;
         if (date - date2 < minInterval) {
 //            dialog.info("Wait 1 minute before posting", "Error");
+            callback();
             return;
         } 
     }
     if (login != "Anonymous" && !checkPassword(login, request.body.password)) {
 //        dialog.info("Wrong password", "Error");
+        callback();
         return;
     }
     pgQuery('SELECT id FROM users WHERE name = $1', [login], function(result) {
