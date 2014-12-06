@@ -13,7 +13,7 @@ pgQuery('SELECT name, password FROM users', [], function(result){
     users = result.rows;
 });
 
-exports.add = function(request) {
+exports.add = function(request, callback) {
     var text = request.body.text, date = new Date(), login = request.body.login;
     var minInterval = 60000; // 1 minute
     if (!text) {
@@ -40,6 +40,7 @@ exports.add = function(request) {
             var user_id = result.rows[0].id;
             var comment = {name: login, date_posted: date, comment_text: text};
             comments.unshift(comment);
+            callback();
             pgQuery('INSERT INTO comments(user_id, date_posted, comment_text) VALUES ($1, $2, $3)', [user_id, date, text]);
         }
         else {

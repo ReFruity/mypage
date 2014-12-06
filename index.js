@@ -40,9 +40,10 @@ app.get('/feedback', function(request, response) {
 });
 
 app.post('/feedback', function(request, response) {
-    feedback.add(request);
+    feedback.add(request, function (){
+        response.render('feedback', {title: 'Feedback', counter: counter.get(), comments: feedback.get()});
+    });
 //    dialog.info(error, "Error");   
-    response.render('feedback', {title: 'Feedback', counter: counter.get(), comments: feedback.get()});
 });
 
 app.listen(app.get('port'), function() {
