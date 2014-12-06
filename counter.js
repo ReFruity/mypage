@@ -11,7 +11,8 @@ pgQuery('SELECT * FROM counter', [], function(result){data.hits = result.rows[0]
 
 exports.increment = function (request) {
     var ip = request.ip;
-    var parsedUa = parseUa(request.headers["user-agent"]);
+//    var parsedUa = parseUa(request.headers["user-agent"]);
+    var parsedUa = parseUa(request.headers["x-forwarded-for"]);
     var browser = parsedUa.browser.name;
     var version = parsedUa.browser.version;
     
