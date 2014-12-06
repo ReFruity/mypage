@@ -47,6 +47,7 @@ exports.add = function(request, callback) {
             pgQuery('INSERT INTO comments(user_id, date_posted, comment_text) VALUES ($1, $2, $3)', [user_id, date, text]);
         }
         else {
+            callback();
 //            dialog.info("This nickname is not registered", "Error");
         }
     });
