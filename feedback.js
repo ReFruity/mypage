@@ -6,7 +6,7 @@ var comments = [];
 // Initialization
 pgQuery('SELECT name, date_posted, comment_text FROM users JOIN comments ON comments.user_id = users.id', 
     [], function(result){
-    comments = result.rows;
+    comments = result.rows.reverse();
 });
 
 pgQuery('SELECT name, password FROM users', [], function(result){
