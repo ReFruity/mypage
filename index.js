@@ -40,8 +40,8 @@ app.get('/feedback', function(request, response) {
 });
 
 app.post('/feedback', function(request, response) {
-    feedback.add(request, function (){
-        response.render('feedback', {title: 'Feedback', counter: counter.get(), comments: feedback.get()});
+    feedback.add(request, function (error){
+        response.render('feedback', {title: 'Feedback', counter: counter.get(), comments: feedback.get(), error: error});
     });
 //    dialog.info(error, "Error");   
 });

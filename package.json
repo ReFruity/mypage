@@ -17,7 +17,7 @@
         "pg": "*",
         "ua-parser-js": "*",
         "body-parser": "*",
-        "dialog": "*"
+        "sanitize-html": "*"
     },
     "engines": {
         "node": "0.10.x"

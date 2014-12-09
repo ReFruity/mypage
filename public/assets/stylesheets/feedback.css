@@ -22,6 +22,11 @@
     overflow-y: auto;
 }
 
+.container img {
+    max-width: 393px;
+    max-height: 600px;
+} 
+
 .feedbackarea {
     width: 400px;
     height: 100px;
@@ -40,6 +45,13 @@
     word-wrap: break-word;
     margin-left: 20px;
     margin-right: 20px;
+}
+
+.error {
+    background: red;
+    text-align: center;
+    margin-top: 10px;
+    border-radius: 4px;
 }
 
 .button {
