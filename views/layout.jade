@@ -28,7 +28,13 @@ html
                 block content
             div.elemright
                 div.black-card
-                    h1 #{counter}  
+                    //div Total visits: #{counter.hits}
+                    div Your visits: #{counter.visits}
+                    div Your visits today: #{counter.today}
+                    div Last visit: #{counter.last.toTimeString().slice(0,8)}
+                    div #{counter.last.toDateString()}
+                    div Your browser: #{counter.browser}
+                    div Version: #{counter.version}
                 div.white-card
                     a.mail.link(href="mailto:fakeemail@gmail.com") Email me
                     div.externals

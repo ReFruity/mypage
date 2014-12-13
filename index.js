@@ -16,34 +16,34 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.static(__dirname + '/public'));
 app.use(function(request, response, next) {
-    counter.increment(request);
+//    counter.eraseStats();
     next();
 });
 
 app.get('/', function(request, response) {
 //    response.send('Hey, something went terribly wrong!')
-    response.render('index', {title: 'Home', counter: counter.get()})
+    response.render('index', {title: 'Home', counter: counter.get(request)})
 });
 
 app.get('/about', function(request, response) {
-    response.render('about', {title: 'About', counter: counter.get()})
+    response.render('about', {title: 'About', counter: counter.get(request)})
 });
 
 app.get('/gallery', function(request, response) {
-    response.render('gallery', {title: 'Gallery', counter: counter.get()})
+    response.render('gallery', {title: 'Gallery', counter: counter.get(request)})
 });
 
 app.get('/feedback', function(request, response) {
 //    feedback.eraseComments();
 //    feedback.eraseUsers();
-    response.render('feedback', {title: 'Feedback', counter: counter.get(), comments: feedback.get()});
+    response.render('feedback', {title: 'Feedback', counter: counter.get(request), comments: feedback.get()});
 });
 
 app.post('/feedback', function(request, response) {
     feedback.add(request, function (error){
-        response.render('feedback', {title: 'Feedback', counter: counter.get(), comments: feedback.get(), error: error});
+        response.render('feedback', {title: 'Feedback', counter: counter.get(request), 
+            comments: feedback.get(), error: error});
     });
-//    dialog.info(error, "Error");   
 });
 
 app.listen(app.get('port'), function() {

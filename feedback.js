@@ -3,6 +3,8 @@ var pgQuery = require('./utils').pgQuery;
 var users = [];
 var comments = [];
 
+const minInterval = 10000; // 1 minute
+
 // Initialization
 pgQuery('SELECT name, date_posted, comment_text FROM users JOIN comments ON comments.user_id = users.id', 
     [], function(result){
@@ -21,7 +23,6 @@ exports.add = function(request, callback) {
             'img': [ 'src' ]
         }}); 
     var date = new Date(), login = request.body.login;
-    var minInterval = 10000; // 1 minute
     if (!text) {
         callback("Comment cannot be empty");
         return;

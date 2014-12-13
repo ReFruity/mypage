@@ -99,14 +99,15 @@ body {
 /*noinspection CssUnknownTarget*/
 .white-card {
     line-height: 40px;
-    padding: 40px;
+    padding: 40px;  
     background-image: url("/images/white-card.png");
 }
 
 /*noinspection CssUnknownTarget*/
 .black-card {
-    line-height: 25px;
-    padding: 40px;
+    /*line-height: 15px;*/
+    padding-top: 27px;
+    font-size: 12px;
     color: white;
     background-image: url("/images/black-card.png");
 }

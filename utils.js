@@ -6,7 +6,7 @@ exports.pgQuery = function(query, args, handler) {
     pg.connect(conString, function (err, client, done) {
         client.query(query, args, function (err, result) {
             done();
-            if (err) console.error(err);
+            if (err) console.error('Postgres query error:', err);
             else {
                 if (handler)
                     handler(result);
@@ -20,6 +20,17 @@ exports.parseUa = function(ua) {
         [UAParser.BROWSER.NAME, UAParser.BROWSER.VERSION, UAParser.BROWSER.MAJOR]];
     var parser = new UAParser(ua, {browser: ownBrowser});
     return parser.getResult();
+};
+
+exports.getIp = function(request) {
+    var ip = request.headers["x-forwarded-for"];
+    if (ip){
+        var list = ip.split(",");
+        ip = list[list.length-1];
+    } else {
+        ip = request.ip;
+    }
+    return ip;
 };
 
 exports.writeRequest = function (request, filename) {
