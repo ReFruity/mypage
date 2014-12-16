@@ -1,0 +1,35 @@
+extends layout.jade
+block append stylesheets
+    link(rel='stylesheet', href='/assets/stylesheets/poll.css')
+
+block append scripts
+    script(src="/assets/scripts/poll.js", type="text/javascript")
+
+block content
+    h3 What's you favourite picture in the gallery?
+    div#poll
+        div#0 Kyon 1
+        div#1 Kyon 2
+        div#2 Frusciante
+        div#3 Haruhi
+        div#4 Bridge
+    div.separator
+    form(name='poll', action='/poll', method='post', onsubmit="return submitForm(this)")#pollform
+        div
+            input(type='radio', name='group1', value=1)
+            span Vote for Kyon 1
+        div
+            input(type='radio', name='group1', value=2)
+            span Vote for Kyon 2
+        div
+            input(type='radio', name='group1', value=3) 
+            span Vote for Frusciante
+        div
+            input(type='radio', name='group1', value=4)
+            span Vote for Haruhi
+        div
+            input(type='radio', name='group1', value=5)
+            span Vote for bridge
+        div.separator
+        div
+            input#submit(type='submit', value='Send') 

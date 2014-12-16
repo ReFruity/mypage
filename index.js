@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var counter = require('./counter.js');
 var feedback = require('./feedback.js');
+var poll = require('./poll.js');
 var app = express();
 
 app.set('port', (process.env.PORT || 3000));
@@ -39,11 +40,26 @@ app.get('/feedback', function(request, response) {
     response.render('feedback', {title: 'Feedback', counter: counter.get(request), comments: feedback.get()});
 });
 
+app.get('/poll', function(request, response) {
+    response.render('poll', {title: 'Poll', counter: counter.get(request)})
+});
+
+app.get('/stats', function(request, response) {
+   response.send(poll.get()); 
+});
+
 app.post('/feedback', function(request, response) {
     feedback.add(request, function (error){
         response.render('feedback', {title: 'Feedback', counter: counter.get(request), 
             comments: feedback.get(), error: error});
     });
+});
+
+app.post('/poll', function(request, response) {
+    poll.vote(request, function(status){
+        response.status(status).end();
+    });
+//    response.render('poll', {title: 'Poll', counter: counter.get(request)});
 });
 
 app.listen(app.get('port'), function() {
